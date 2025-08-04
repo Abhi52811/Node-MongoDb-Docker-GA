@@ -13,7 +13,7 @@ env:
 jobs:
   test:
     name: Run Tests in Container
-    runs-on: ubuntu-latest  # ✅ REQUIRED FIELD
+    runs-on: ubuntu-latest
     container:
       image: node:18
     env:
@@ -30,6 +30,7 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: example
         ports:
           - 27017:27017
+        # FIX: Un-indented this line by two spaces to align with 'ports'
         options: --health-cmd="mongo --eval 'db.runCommand({ ping: 1 })'" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - name: Checkout Code
@@ -50,8 +51,8 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Output information
-        run: echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+      # - name: Output information
+      #   run: echo "MONGODB_USERNAME: $MONGODB_USERNAME"
 
   deploy:
     name: Deployment Step
