@@ -30,8 +30,8 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: example
         ports:
           - 27017:27017
-        # FIX: Un-indented this line by two spaces to align with 'ports'
-        options: --health-cmd="mongo --eval 'db.runCommand({ ping: 1 })'" --health-interval=10s --health-timeout=5s --health-retries=5
+        # FIX: Wrapped the entire string in single quotes and escaped the inner single quotes by doubling them.
+        options: '--health-cmd="mongo --eval ''db.runCommand({ ping: 1 })''" --health-interval=10s --health-timeout=5s --health-retries=5'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -50,9 +50,6 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      # - name: Output information
-      #   run: echo "MONGODB_USERNAME: $MONGODB_USERNAME"
 
   deploy:
     name: Deployment Step
